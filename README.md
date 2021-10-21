@@ -21,6 +21,8 @@
 ## Using Exporter
 1. GIN_MODE=release ./exporter -addr=IP-Address:Port => Production Mode
 1. ./exporter => Debug Mode and default PORT=4000
+1. curl localhost:4000/metrics/dell?host=https://192.168.2.171
+1. curl localhost:4000/metrics/hpe?host=https://192.168.2.156
 ## Sample metrics
 ```bash
 # HELP ethernet_port ethernet_port {0: LinkUp, 2: LinkDown}

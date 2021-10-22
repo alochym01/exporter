@@ -56,6 +56,42 @@ type StorageDisk struct {
 	// FirmwareVersion                   DiskDrivesFirmwareVersion
 }
 
+type HPESystemsOEMHpeAggregateHealthStatusStatus struct {
+	Status HealthStatus
+}
+
+func (s HPESystemsOEMHpeAggregateHealthStatusStatus) StatusToNumber() float64 {
+	switch s.Status.Health {
+	case "OK":
+		return 0.0
+	case "Warning":
+		return 1.0
+	case "Critical":
+		return 2.0
+	default:
+		return 3.0
+	}
+}
+
+type HPESystemsOEMHpeAggregateHealthStatus struct {
+	AgentlessManagementService string `json:"AgentlessManagementService"`
+	BiosOrHardwareHealth       HPESystemsOEMHpeAggregateHealthStatusStatus
+	FanRedundancy              string `json:"FanRedundancy"`
+	Fans                       HPESystemsOEMHpeAggregateHealthStatusStatus
+	Memory                     HPESystemsOEMHpeAggregateHealthStatusStatus
+	Network                    HPESystemsOEMHpeAggregateHealthStatusStatus
+	PowerSupplies              HPESystemsOEMHpeAggregateHealthStatusStatus
+	Processors                 HPESystemsOEMHpeAggregateHealthStatusStatus
+	SmartStorageBattery        HPESystemsOEMHpeAggregateHealthStatusStatus
+	Storage                    HPESystemsOEMHpeAggregateHealthStatusStatus
+	Temperatures               HPESystemsOEMHpeAggregateHealthStatusStatus
+}
+type HPESystemsOEMHpe struct {
+	AggregateHealthStatus HPESystemsOEMHpeAggregateHealthStatus
+}
+type HPESystemsOEM struct {
+	Hpe HPESystemsOEMHpe
+}
 type Systems struct {
 	Meta
 	// Actions
@@ -78,7 +114,7 @@ type Systems struct {
 	Model string `json:"Model"`
 	Name  string `json:"Name"`
 	// NetworkInterfaces      base.Link
-	// Oem                    SystemsOEM
+	Oem HPESystemsOEM
 	// PCIeDevices            []base.Link
 	// PCIeDevicesOdataCount  int    `json:"PCIeDevices@odata.count"`
 	PartNumber string `json:"PartNumber"`

@@ -17,10 +17,13 @@ type Metrics struct {
 // Describe a description of metrics
 func (m Metrics) Describe(ch chan<- *prometheus.Desc) {
 	ch <- base.SysState
-	// ch <- base.SysStorageState
+	ch <- base.SysStorageStatus
 	ch <- base.SysStorageDisk
 	ch <- base.SysEthernetInterface
 	ch <- base.ChasPower
+	ch <- base.ChasFansStatus
+	ch <- base.ChasPowerStatus
+	ch <- base.ChasTemperatureStatus
 }
 
 // Collect return a metric with all desc value and metric value
@@ -86,7 +89,10 @@ func (m Metrics) SetSystemHealthMetrics(chSys chan<- prometheus.Metric, c redfis
 		// fmt.Println(string(b))
 	}
 	chSys <- prometheus.MustNewConstMetric(base.SysState, prometheus.GaugeValue, sys.StatusToNumber(), sys.SKU, sys.SerialNumber)
-
+	chSys <- prometheus.MustNewConstMetric(base.SysStorageStatus, prometheus.GaugeValue, sys.Oem.Dell.DellSystem.StorageStatus())
+	chSys <- prometheus.MustNewConstMetric(base.ChasFansStatus, prometheus.GaugeValue, sys.Oem.Dell.DellSystem.FansStatus())
+	chSys <- prometheus.MustNewConstMetric(base.ChasPowerStatus, prometheus.GaugeValue, sys.Oem.Dell.DellSystem.PowerSupplyStatus())
+	chSys <- prometheus.MustNewConstMetric(base.ChasTemperatureStatus, prometheus.GaugeValue, sys.Oem.Dell.DellSystem.TemperatureStatus())
 	return &sys, nil
 }
 

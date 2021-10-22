@@ -20,10 +20,13 @@ func NewMetrics(s string) Metrics {
 
 func (m Metrics) Describe(ch chan<- *prometheus.Desc) {
 	ch <- base.SysState
-	// ch <- base.SysStorageState
+	ch <- base.SysStorageStatus
 	ch <- base.SysStorageDisk
 	ch <- base.SysEthernetInterface
 	ch <- base.ChasPower
+	ch <- base.ChasFansStatus
+	ch <- base.ChasPowerStatus
+	ch <- base.ChasTemperatureStatus
 }
 
 func (m Metrics) Collect(ch chan<- prometheus.Metric) {
@@ -36,6 +39,14 @@ func (m Metrics) Collect(ch chan<- prometheus.Metric) {
 	}
 	// System Metrics
 	m.SetSystemHealthMetrics(ch, client, *hpeiLORD)
+	// sys := m.SetSystemHealthMetrics(ch, client, *hpeiLORD)
+	// if sys == nil {
+	// 	return
+	// }
+	// SysState(ch, *sys)
+	// FansState(ch, *sys)
+	// PowerSupplyState(ch, *sys)
+	// TemperatureState(ch, *sys)
 	m.SetDiskMetrics(ch, client, *hpeiLORD)
 	m.SetEthernetMetrics(ch, client, *hpeiLORD)
 	m.SetPowerMetrics(ch, client, *hpeiLORD)
@@ -59,6 +70,8 @@ func (m Metrics) getResourceDirectory(c redfish.APIClient) (*base.HpeiLOResource
 	}
 	return &rfLinks, nil
 }
+
+// func (m Metrics) SetSystemHealthMetrics(ch chan<- prometheus.Metric, c redfish.APIClient, HpeiLORD base.HpeiLOResourceDirectory) *base.Systems {
 func (m Metrics) SetSystemHealthMetrics(ch chan<- prometheus.Metric, c redfish.APIClient, HpeiLORD base.HpeiLOResourceDirectory) {
 	// get System URL
 	sysURL := findObject(HpeiLORD.Instances, "ComputerSystem.", m.server)
@@ -80,6 +93,10 @@ func (m Metrics) SetSystemHealthMetrics(ch chan<- prometheus.Metric, c redfish.A
 		}
 		var sys base.Systems
 		err = json.Unmarshal(sysData, &sys)
+
+		// b, _ := json.MarshalIndent(sys, "", "    ")
+		// fmt.Println(string(b))
+
 		// Data cannot convert System struct
 		if err != nil {
 			fmt.Println(v)
@@ -87,6 +104,10 @@ func (m Metrics) SetSystemHealthMetrics(ch chan<- prometheus.Metric, c redfish.A
 			ch <- prometheus.MustNewConstMetric(base.SysState, prometheus.GaugeValue, 2.0, "", "")
 			return
 		}
+
+		// return &sys
+
+		// m := []
 		ch <- prometheus.MustNewConstMetric(
 			base.SysState,
 			prometheus.GaugeValue,
@@ -94,9 +115,25 @@ func (m Metrics) SetSystemHealthMetrics(ch chan<- prometheus.Metric, c redfish.A
 			sys.SKU,
 			sys.SerialNumber,
 		)
+		ch <- prometheus.MustNewConstMetric(
+			base.ChasFansStatus,
+			prometheus.GaugeValue,
+			sys.Oem.Hpe.AggregateHealthStatus.Fans.StatusToNumber(),
+		)
+		ch <- prometheus.MustNewConstMetric(
+			base.ChasPowerStatus,
+			prometheus.GaugeValue,
+			sys.Oem.Hpe.AggregateHealthStatus.PowerSupplies.StatusToNumber(),
+		)
+		ch <- prometheus.MustNewConstMetric(
+			base.ChasTemperatureStatus,
+			prometheus.GaugeValue,
+			sys.Oem.Hpe.AggregateHealthStatus.Temperatures.StatusToNumber(),
+		)
+		ch <- prometheus.MustNewConstMetric(base.SysStorageStatus, prometheus.GaugeValue, sys.Oem.Hpe.AggregateHealthStatus.Storage.StatusToNumber())
+
 	}
 	return
-
 }
 
 func (m Metrics) SetDiskMetrics(ch chan<- prometheus.Metric, c redfish.APIClient, HpeiLORD base.HpeiLOResourceDirectory) {
@@ -150,25 +187,6 @@ func (m Metrics) SetEthernetMetrics(ch chan<- prometheus.Metric, c redfish.APICl
 	// Using go routine
 	for _, url := range ifURLs {
 		go getEthernet(c, url, ifAlochym)
-		// ifData, err := c.Get(url)
-		// if err != nil {
-		// 	continue
-		// }
-		// var iface base.BaseNetworkAdapters
-		// json.Unmarshal(ifData, &iface)
-		// if err != nil {
-		// 	continue
-		// }
-		// for _, v := range iface.PhysicalPorts {
-		// 	ch <- prometheus.MustNewConstMetric(
-		// 		base.SysEthernetInterface,
-		// 		prometheus.GaugeValue,
-		// 		v.PortStatus(),
-		// 		iface.Id,
-		// 		v.MacAddress,
-		// 		fmt.Sprintf("%d", v.SpeedMbps),
-		// 	)
-		// }
 	}
 
 	// Get Ethernet Interfaces Data
@@ -225,25 +243,6 @@ func (m Metrics) SetPowerMetrics(ch chan<- prometheus.Metric, c redfish.APIClien
 			)
 		}
 	}
-
-	// for range ifPowers {
-	// 	var power base.PowerControl
-	// 	data := <-ifpower
-	// 	err := json.Unmarshal(data, &power)
-	// 	// Data cannot convert PowerControl struct
-	// 	if err != nil {
-	// 		// fmt.Println(ifPowers[0])
-	// 		fmt.Println(err.Error())
-	// 		return
-	// 	}
-	// 	for _, v := range power.PowerControl {
-	// 		ch <- prometheus.MustNewConstMetric(
-	// 			base.ChasPower,
-	// 			prometheus.GaugeValue,
-	// 			v.PowerConsumedWatts,
-	// 		)
-	// 	}
-	// }
 }
 
 func findObject(ob []base.RedfishLinksInstances, obType string, server string) []string {

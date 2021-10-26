@@ -85,9 +85,10 @@ func (m Metrics) SetSystemHealthMetrics(chSys chan<- prometheus.Metric, c redfis
 			chSys <- prometheus.MustNewConstMetric(base.SysState, prometheus.GaugeValue, 2.0, "", "")
 			return nil, err
 		}
-		// b, err := json.MarshalIndent(sys, "", "   ")
-		// fmt.Println(string(b))
 	}
+	// b, err := json.MarshalIndent(sys, "", "   ")
+	// fmt.Println(string(b))
+	// fmt.Println(sys.Oem.Dell.DellSystem.StorageStatus())
 	chSys <- prometheus.MustNewConstMetric(base.SysState, prometheus.GaugeValue, sys.StatusToNumber(), sys.SKU, sys.SerialNumber)
 	chSys <- prometheus.MustNewConstMetric(base.SysStorageStatus, prometheus.GaugeValue, sys.Oem.Dell.DellSystem.StorageStatus())
 	chSys <- prometheus.MustNewConstMetric(base.ChasFansStatus, prometheus.GaugeValue, sys.Oem.Dell.DellSystem.FansStatus())

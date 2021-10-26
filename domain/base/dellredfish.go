@@ -28,12 +28,14 @@ type DellChassisOEMDellDellSystem struct {
 }
 
 func (c DellChassisOEMDellDellSystem) StorageStatus() float64 {
-	switch c.FanRollupStatus {
+	switch c.StorageRollupStatus {
 	case "OK":
 		return 0.0
 	case "Warning":
 		return 1.0
 	case "Critical":
+		return 2.0
+	case "Degraded":
 		return 2.0
 	default:
 		return 3.0

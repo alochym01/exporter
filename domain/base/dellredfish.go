@@ -36,7 +36,7 @@ func (c DellChassisOEMDellDellSystem) StorageStatus() float64 {
 	case "Critical":
 		return 2.0
 	case "Degraded":
-		return 2.0
+		return 1.0
 	default:
 		return 3.0
 	}
@@ -74,7 +74,7 @@ func (c DellChassisOEMDellDellSystem) TemperatureStatus() float64 {
 	case "Critical":
 		return 2.0
 	case "Degraded":
-		return 2.0
+		return 1.0
 	default:
 		return 3.0
 	}

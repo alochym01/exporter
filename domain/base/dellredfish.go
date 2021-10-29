@@ -73,6 +73,8 @@ func (c DellChassisOEMDellDellSystem) TemperatureStatus() float64 {
 		return 1.0
 	case "Critical":
 		return 2.0
+	case "Degraded":
+		return 2.0
 	default:
 		return 3.0
 	}

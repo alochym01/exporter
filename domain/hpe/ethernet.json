@@ -1,0 +1,46 @@
+    "PhysicalPorts": [
+        {
+            "FullDuplex": true,
+            "IPv4Addresses": [],
+            "IPv6Addresses": [],
+            "LinkStatus": "LinkUp",
+            "MacAddress": "48:df:37:d6:6a:20",
+            "Name": "",
+            "Oem": {
+                "Hpe": {
+                    "@odata.context": "/redfish/v1/$metadata#HpeBaseNetworkAdapterExt.HpeBaseNetworkAdapterExt",
+                    "@odata.type": "#HpeBaseNetworkAdapterExt.v2_0_0.HpeBaseNetworkAdapterExt",
+                    "BadReceives": 0,
+                    "BadTransmits": 0,
+                    "GoodReceives": -1062437050,
+                    "GoodTransmits": -703278851
+                }
+            },
+            "SpeedMbps": 0,
+            "Status": {
+                "Health": "OK"
+            }
+        },
+        {
+            "FullDuplex": true,
+            "IPv4Addresses": [],
+            "IPv6Addresses": [],
+            "LinkStatus": "LinkUp",
+            "MacAddress": "48:df:37:d6:6a:20",
+            "Name": "",
+            "Oem": {
+                "Hpe": {
+                    "@odata.context": "/redfish/v1/$metadata#HpeBaseNetworkAdapterExt.HpeBaseNetworkAdapterExt",
+                    "@odata.type": "#HpeBaseNetworkAdapterExt.v2_0_0.HpeBaseNetworkAdapterExt",
+                    "BadReceives": 0,
+                    "BadTransmits": 0,
+                    "GoodReceives": -843476748,
+                    "GoodTransmits": 1
+                }
+            },
+            "SpeedMbps": 0,
+            "Status": {
+                "Health": "OK"
+            }
+        }
+    ],

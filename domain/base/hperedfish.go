@@ -1,5 +1,7 @@
 package base
 
+import "strings"
+
 type RedfishLinksInstances struct {
 	ODataID     string   `json:"@odata.id"`
 	OdataType   string   `json:"@odata.type"`
@@ -165,12 +167,20 @@ type BaseNetworkAdapters struct {
 }
 
 func (b BaseNetworkAdaptersPhysicalPorts) PortStatus() float64 {
-	switch b.SpeedMbps {
-	case 0:
-		return 2.0
-	default:
+	switch strings.ToLower(b.Status.Health) {
+	case "ok":
 		return 0.0
+	case "warning":
+		return 1.0
+	default:
+		return 2.0
 	}
+	// switch b.SpeedMbps {
+	// case 0:
+	// 	return 2.0
+	// default:
+	// 	return 0.0
+	// }
 }
 
 type PowerControlOem struct {

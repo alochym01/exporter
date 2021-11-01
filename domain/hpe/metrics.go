@@ -192,13 +192,13 @@ func (m Metrics) SetEthernetMetrics(ch chan<- prometheus.Metric, c redfish.APICl
 	// Get Ethernet Interfaces Data
 	for range ifURLs {
 		iface := <-ifAlochym
-		for _, v := range iface.PhysicalPorts {
+		for i, v := range iface.PhysicalPorts {
 			ch <- prometheus.MustNewConstMetric(
 				base.SysEthernetInterface,
 				prometheus.GaugeValue,
 				v.PortStatus(),
 				iface.Id,
-				v.MacAddress,
+				fmt.Sprintf("%d-%s", i, v.MacAddress),
 				fmt.Sprintf("%d", v.SpeedMbps),
 			)
 		}

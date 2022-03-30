@@ -61,6 +61,8 @@ func (c DellChassisOEMDellDellSystem) PowerSupplyStatus() float64 {
 		return 1.0
 	case "Critical":
 		return 2.0
+	case "Error":
+		return 2.0
 	default:
 		return 3.0
 	}

@@ -21,14 +21,14 @@ func (m Metrics) Describe(ch chan<- *prometheus.Desc) {
 
 // Collect return a metric with all desc value and metric value
 func (m Metrics) Collect(ch chan<- prometheus.Metric) {
-	url := m.server + "/redfish/v1/Systems/System.Embedded.1"
-	_, err := m.svc.SystemStatus(url)
+	url := m.server + computerSystemURL
+	sys, err := m.svc.ComputerSystem(url)
 	if err != nil {
 		fmt.Println(err)
-		ch <- prometheus.MustNewConstMetric(metric.SysState, prometheus.GaugeValue, 1, "123456", "12345", "PowerEdge R740xd2")
+		ch <- prometheus.MustNewConstMetric(metric.SysState, prometheus.GaugeValue, 1, "", "", "")
 		return
 	}
-	ch <- prometheus.MustNewConstMetric(metric.SysState, prometheus.GaugeValue, 0, "123456", "12345", "PowerEdge R740xd2")
+	ch <- prometheus.MustNewConstMetric(metric.SysState, prometheus.GaugeValue, sys.StatusToNumber(), sys.SKU, sys.SerialNumber, sys.Model)
 	// fmt.Println(data)
 }
 

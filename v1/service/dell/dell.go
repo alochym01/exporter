@@ -1,6 +1,11 @@
 package dell
 
-import "github.com/alochym01/exporter/v1/storage"
+import (
+	"encoding/json"
+
+	"github.com/alochym01/exporter/v1/metric"
+	"github.com/alochym01/exporter/v1/storage"
+)
 
 type Service struct {
 	store storage.RedFishClient
@@ -12,11 +17,13 @@ func NewService(s storage.RedFishClient) Service {
 		store: s,
 	}
 }
-func (s Service) SystemStatus(url string) ([]byte, error) {
+func (s Service) ComputerSystem(url string) (*metric.DellComputerSystem, error) {
 	data, err := s.store.Get(url)
 	if err != nil {
 		return nil, err
 	}
+	var computerSystem metric.DellComputerSystem
 
-	return data, nil
+	err = json.Unmarshal(data, &computerSystem)
+	return &computerSystem, nil
 }

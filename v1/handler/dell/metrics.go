@@ -21,14 +21,18 @@ func (m Metrics) Describe(ch chan<- *prometheus.Desc) {
 
 // Collect return a metric with all desc value and metric value
 func (m Metrics) Collect(ch chan<- prometheus.Metric) {
+	// ComputerSystem Start
 	url := m.server + computerSystemURL
 	sys, err := m.svc.ComputerSystem(url)
 	if err != nil {
 		fmt.Println(err)
+		// ComputerSystem set Warning for Timeout
 		ch <- prometheus.MustNewConstMetric(metric.SysState, prometheus.GaugeValue, 1, "", "", "")
 		return
 	}
 	ch <- prometheus.MustNewConstMetric(metric.SysState, prometheus.GaugeValue, sys.StatusToNumber(), sys.SKU, sys.SerialNumber, sys.Model)
+	// ComputerSystem End
+
 	// fmt.Println(data)
 }
 

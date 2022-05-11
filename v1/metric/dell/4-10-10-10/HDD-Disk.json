@@ -1,0 +1,104 @@
+{
+    "_comment": "curl -u root:calvin -k \"https://192.168.2.172/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1/Drives/Disk.Bay.5:Enclosure.Internal.0-2:RAID.Integrated.1-1\"|python -m json.tool",
+    "@odata.context": "/redfish/v1/$metadata#Drive.Drive",
+    "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1/Drives/Disk.Bay.5:Enclosure.Internal.0-2:RAID.Integrated.1-1",
+    "@odata.type": "#Drive.v1_7_0.Drive",
+    "Actions": {
+        "#Drive.SecureErase": {
+            "@Redfish.OperationApplyTimeSupport": {
+                "@odata.type": "#Settings.v1_2_2.OperationApplyTimeSupport",
+                "SupportedValues": [
+                    "Immediate",
+                    "OnReset"
+                ]
+            },
+            "target": "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1/Drives/Disk.Bay.5:Enclosure.Internal.0-2:RAID.Integrated.1-1/Actions/Drive.SecureErase"
+        }
+    },
+    "Assembly": {
+        "@odata.id": "/redfish/v1/Chassis/System.Embedded.1/Assembly"
+    },
+    "BlockSizeBytes": 512,
+    "CapableSpeedGbs": 6,
+    "CapacityBytes": 11999601754112,
+    "Description": "Physical Disk 0:2:5",
+    "EncryptionAbility": "None",
+    "EncryptionStatus": "Unencrypted",
+    "FailurePredicted": false,
+    "HotspareType": "None",
+    "Id": "Disk.Bay.5:Enclosure.Internal.0-2:RAID.Integrated.1-1",
+    "Identifiers": [
+        {
+            "DurableName": "500056b32c9576c5",
+            "DurableNameFormat": "NAA"
+        }
+    ],
+    "Identifiers@odata.count": 1,
+    "Links": {
+        "Chassis": {
+            "@odata.id": "/redfish/v1/Chassis/Enclosure.Internal.0-2:RAID.Integrated.1-1"
+        },
+        "PCIeFunctions": [],
+        "PCIeFunctions@odata.count": 0,
+        "Volumes": [
+            {
+                "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1/Volumes/Disk.Virtual.2:RAID.Integrated.1-1"
+            }
+        ],
+        "Volumes@odata.count": 1
+    },
+    "Location": [],
+    "Manufacturer": "SEAGATE",
+    "MediaType": "HDD",
+    "Model": "ST12000NM005G 2M",
+    "Name": "Physical Disk 0:2:5",
+    "NegotiatedSpeedGbs": 6,
+    "Oem": {
+        "Dell": {
+            "DellPhysicalDisk": {
+                "@odata.context": "/redfish/v1/$metadata#DellPhysicalDisk.DellPhysicalDisk",
+                "@odata.id": "/redfish/v1/Dell/Systems/System.Embedded.1/Storage/Drives/DellPhysicalDisk/Disk.Bay.5:Enclosure.Internal.0-2:RAID.Integrated.1-1",
+                "@odata.type": "#DellPhysicalDisk.v1_1_0.DellPhysicalDisk",
+                "Connector": 0,
+                "DriveFormFactor": "3.5Inch",
+                "ForeignKeyIdentifier": null,
+                "FreeSizeInBytes": 0,
+                "LastSystemInventoryTime": "2022-02-23T14:40:20+00:00",
+                "LastUpdateTime": "2022-02-23T14:40:19+00:00",
+                "ManufacturingDay": 0,
+                "ManufacturingWeek": 0,
+                "ManufacturingYear": 0,
+                "OperationName": "None",
+                "OperationPercentCompletePercent": 0,
+                "PPID": "TH0V308GSGT000A8004YA00",
+                "PredictiveFailureState": "SmartAlertAbsent",
+                "RAIDType": "Unknown",
+                "RaidStatus": "Online",
+                "SASAddress": "500056B32C9576C5",
+                "Slot": 5,
+                "SystemEraseCapability": "CryptographicErasePD",
+                "T10PICapability": "NotSupported",
+                "UsedSizeInBytes": 11999601754112
+            }
+        }
+    },
+    "Operations": [],
+    "Operations@odata.count": 0,
+    "PartNumber": "TH0V308GSGT000A8004YA00",
+    "PhysicalLocation": {
+        "PartLocation": {
+            "LocationOrdinalValue": 5,
+            "LocationType": "Slot"
+        }
+    },
+    "PredictedMediaLifeLeftPercent": null,
+    "Protocol": "SATA",
+    "Revision": "EAL6",
+    "RotationSpeedRPM": 8220,
+    "SerialNumber": "ZLW1SD92",
+    "Status": {
+        "Health": "OK",
+        "HealthRollup": "OK",
+        "State": "Enabled"
+    }
+}

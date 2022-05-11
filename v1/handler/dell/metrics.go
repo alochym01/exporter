@@ -32,6 +32,24 @@ func (m Metrics) Collect(ch chan<- prometheus.Metric) {
 	}
 	ch <- prometheus.MustNewConstMetric(metric.SysState, prometheus.GaugeValue, sys.StatusToNumber(), sys.SKU, sys.SerialNumber, sys.Model)
 	// ComputerSystem End
+	// b, err := json.MarshalIndent(sys, "", "   ")
+	// fmt.Println(string(b))
+
+	// ComputerSystem Storage Status start
+	ch <- prometheus.MustNewConstMetric(metric.SysStorageStatus, prometheus.GaugeValue, sys.Oem.StorageStatus())
+	// ComputerSystem Storage Status end
+
+	// ComputerSystem Storage Status start
+	ch <- prometheus.MustNewConstMetric(metric.SysFansStatus, prometheus.GaugeValue, sys.Oem.FansStatus())
+	// ComputerSystem Storage Status end
+
+	// ComputerSystem Storage Status start
+	ch <- prometheus.MustNewConstMetric(metric.SysPowerStatus, prometheus.GaugeValue, sys.Oem.PowerSupplyStatus())
+	// ComputerSystem Storage Status end
+
+	// ComputerSystem Storage Status start
+	ch <- prometheus.MustNewConstMetric(metric.SysTemperatureStatus, prometheus.GaugeValue, sys.Oem.TemperatureStatus())
+	// ComputerSystem Storage Status end
 
 	// fmt.Println(data)
 }

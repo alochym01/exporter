@@ -1,5 +1,9 @@
 package metric
 
+type Link struct {
+	ODataID string `json:"@odata.id"`
+}
+
 type DellHealthStatus struct {
 	Health string `json:"Health"`
 }
@@ -18,7 +22,9 @@ type DellComputerSystemStatus struct {
 	DellHealthRollupStatus
 }
 
+// DellComputerSystem start
 type DellComputerSystem struct {
+	Oem          DellSystemComputerOEM
 	Model        string `json:Model`
 	PartNumber   string `json:PartNumber`
 	SerialNumber string `json:SerialNumber`
@@ -38,6 +44,87 @@ func (s DellComputerSystem) StatusToNumber() float64 {
 		return 3.0
 	}
 }
+
+// DellComputerSystem end
+
+// DellComputerSystemOME start
+type DellSystemComputerOEM struct {
+	Dell struct {
+		DellSystem struct {
+			BatteryRollupStatus string `json:"BatteryRollupStatus"`
+			FanRollupStatus     string `json:"FanRollupStatus"`
+			StorageRollupStatus string `json:"StorageRollupStatus"`
+			TempRollupStatus    string `json:"TempRollupStatus"`
+			PSRollupStatus      string `json:"PSRollupStatus"`
+		}
+	}
+}
+
+func (c DellSystemComputerOEM) StorageStatus() float64 {
+	switch c.Dell.DellSystem.StorageRollupStatus {
+	case "OK":
+		return 0.0
+	case "Warning":
+		return 1.0
+	case "Critical":
+		return 2.0
+	case "Degraded":
+		return 1.0
+	default:
+		return 3.0
+	}
+}
+
+func (c DellSystemComputerOEM) FansStatus() float64 {
+	switch c.Dell.DellSystem.FanRollupStatus {
+	case "OK":
+		return 0.0
+	case "Warning":
+		return 1.0
+	case "Critical":
+		return 2.0
+	default:
+		return 3.0
+	}
+}
+func (c DellSystemComputerOEM) PowerSupplyStatus() float64 {
+	switch c.Dell.DellSystem.PSRollupStatus {
+	case "OK":
+		return 0.0
+	case "Warning":
+		return 1.0
+	case "Critical":
+		return 2.0
+	case "Error":
+		return 2.0
+	default:
+		return 3.0
+	}
+}
+func (c DellSystemComputerOEM) TemperatureStatus() float64 {
+	switch c.Dell.DellSystem.TempRollupStatus {
+	case "OK":
+		return 0.0
+	case "Warning":
+		return 1.0
+	case "Critical":
+		return 2.0
+	case "Degraded":
+		return 1.0
+	default:
+		return 3.0
+	}
+}
+
+// DellComputerSystemOME end
+
+// DellStorage start
+type DellStorage struct {
+	Drives      []Link
+	DrivesCount int `json:"Drives@odata.count"`
+}
+
+// DellStorage end
 
 // type DellSystems struct {
 // 	Meta

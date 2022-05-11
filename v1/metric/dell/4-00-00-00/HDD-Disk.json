@@ -1,0 +1,100 @@
+{
+    "_comment": "curl -u root:calvin -k 'https: //192.168.2.158/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1/Drives/Disk.Bay.0:Enclosure.Internal.0-1:RAID.Integrated.1-1'|python -m json.tool",
+    "@odata.context": "/redfish/v1/$metadata#Drive.Drive",
+    "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1/Drives/Disk.Bay.0:Enclosure.Internal.0-1:RAID.Integrated.1-1",
+    "@odata.type": "#Drive.v1_5_0.Drive",
+    "Actions": {
+        "#Drive.SecureErase": {
+            "@Redfish.OperationApplyTimeSupport": {
+                "@odata.type": "#Settings.v1_2_1.OperationApplyTimeSupport",
+                "SupportedValues": [
+                    "Immediate",
+                    "OnReset"
+                ]
+            },
+            "target": "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1/Drives/Disk.Bay.0:Enclosure.Internal.0-1:RAID.Integrated.1-1/Actions/Drive.SecureErase"
+        }
+    },
+    "Assembly": {
+        "@odata.id": "/redfish/v1/Chassis/System.Embedded.1/Assembly"
+    },
+    "BlockSizeBytes": 512,
+    "CapableSpeedGbs": 12,
+    "CapacityBytes": 4000225165312,
+    "Description": "Physical Disk 0:1:0",
+    "EncryptionAbility": "None",
+    "EncryptionStatus": "Unencrypted",
+    "FailurePredicted": false,
+    "HotspareType": "None",
+    "Id": "Disk.Bay.0:Enclosure.Internal.0-1:RAID.Integrated.1-1",
+    "Identifiers": [
+        {
+            "DurableName": "50000399c861fb2a",
+            "DurableNameFormat": "NAA"
+        }
+    ],
+    "Links": {
+        "Chassis": {
+            "@odata.id": "/redfish/v1/Chassis/Enclosure.Internal.0-1:RAID.Integrated.1-1"
+        },
+        "Volumes": [
+            {
+                "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1/Volumes/Disk.Virtual.2:RAID.Integrated.1-1"
+            }
+        ],
+        "Volumes@odata.count": 1
+    },
+    "Location": [],
+    "Manufacturer": "TOSHIBA",
+    "MediaType": "HDD",
+    "Model": "MG04SCA40ENY",
+    "Name": "Physical Disk 0:1:0",
+    "NegotiatedSpeedGbs": 12,
+    "Oem": {
+        "Dell": {
+            "DellPhysicalDisk": {
+                "@odata.context": "/redfish/v1/$metadata#DellPhysicalDisk.DellPhysicalDisk",
+                "@odata.id": "/redfish/v1/Dell/Systems/System.Embedded.1/Storage/Drives/DellPhysicalDisk/Disk.Bay.0:Enclosure.Internal.0-1:RAID.Integrated.1-1",
+                "@odata.type": "#DellPhysicalDisk.v1_1_0.DellPhysicalDisk",
+                "Connector": 0,
+                "DriveFormFactor": "3.5Inch",
+                "ForeignKeyIdentifier": null,
+                "FreeSizeInBytes": 0,
+                "LastSystemInventoryTime": "2021-08-25T12:37:02+00:00",
+                "LastUpdateTime": "2021-08-25T13:37:01+00:00",
+                "ManufacturingDay": 4,
+                "ManufacturingWeek": 47,
+                "ManufacturingYear": 2019,
+                "OperationName": "None",
+                "OperationPercentCompletePercent": 0,
+                "PPID": "PH01MVTTTB2009BKFIQYA00",
+                "PredictiveFailureState": "SmartAlertAbsent",
+                "RAIDType": "Unknown",
+                "RaidStatus": "Online",
+                "SASAddress": "50000399C861FB2A",
+                "Slot": 0,
+                "SystemEraseCapability": "CryptographicErasePD",
+                "T10PICapability": "NotSupported",
+                "UsedSizeInBytes": 4000225165312
+            }
+        }
+    },
+    "Operations": [],
+    "PartNumber": "PH01MVTTTB2009BKFIQYA00",
+    "PhysicalLocation": {
+        "PartLocation": {
+            "LocationOrdinalValue": 0,
+            "LocationType": "Slot"
+        }
+    },
+    "PredictedMediaLifeLeftPercent": null,
+    "Protocol": "SAS",
+    "Revision": "EG03",
+    "RotationSpeedRPM": 7200,
+    "SerialNumber": "Y9J0A1GLF74E",
+    "Status": {
+        "Health": "OK",
+        "HealthRollup": "OK",
+        "State": "Enabled"
+    }
+}

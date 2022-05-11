@@ -1,0 +1,104 @@
+{
+    "_comment": "curl -u root:calvin -k 'https://192.168.2.172/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1/Drives/Disk.Bay.22:Enclosure.Internal.0-2:RAID.Integrated.1-1'|python -m json.tool",
+    "@odata.context": "/redfish/v1/$metadata#Drive.Drive",
+    "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1/Drives/Disk.Bay.22:Enclosure.Internal.0-2:RAID.Integrated.1-1",
+    "@odata.type": "#Drive.v1_7_0.Drive",
+    "Actions": {
+        "#Drive.SecureErase": {
+            "@Redfish.OperationApplyTimeSupport": {
+                "@odata.type": "#Settings.v1_2_2.OperationApplyTimeSupport",
+                "SupportedValues": [
+                    "Immediate",
+                    "OnReset"
+                ]
+            },
+            "target": "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1/Drives/Disk.Bay.22:Enclosure.Internal.0-2:RAID.Integrated.1-1/Actions/Drive.SecureErase"
+        }
+    },
+    "Assembly": {
+        "@odata.id": "/redfish/v1/Chassis/System.Embedded.1/Assembly"
+    },
+    "BlockSizeBytes": 512,
+    "CapableSpeedGbs": 12,
+    "CapacityBytes": 959656755200,
+    "Description": "Solid State Disk 0:2:22",
+    "EncryptionAbility": "None",
+    "EncryptionStatus": "Unencrypted",
+    "FailurePredicted": false,
+    "HotspareType": "None",
+    "Id": "Disk.Bay.22:Enclosure.Internal.0-2:RAID.Integrated.1-1",
+    "Identifiers": [
+        {
+            "DurableName": "58ce38ee20cf3b5a",
+            "DurableNameFormat": "NAA"
+        }
+    ],
+    "Identifiers@odata.count": 1,
+    "Links": {
+        "Chassis": {
+            "@odata.id": "/redfish/v1/Chassis/Enclosure.Internal.0-2:RAID.Integrated.1-1"
+        },
+        "PCIeFunctions": [],
+        "PCIeFunctions@odata.count": 0,
+        "Volumes": [
+            {
+                "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1/Volumes/Disk.Virtual.1:RAID.Integrated.1-1"
+            }
+        ],
+        "Volumes@odata.count": 1
+    },
+    "Location": [],
+    "Manufacturer": "TOSHIBA",
+    "MediaType": "SSD",
+    "Model": "KPM5XVUG960G",
+    "Name": "Solid State Disk 0:2:22",
+    "NegotiatedSpeedGbs": 12,
+    "Oem": {
+        "Dell": {
+            "DellPhysicalDisk": {
+                "@odata.context": "/redfish/v1/$metadata#DellPhysicalDisk.DellPhysicalDisk",
+                "@odata.id": "/redfish/v1/Dell/Systems/System.Embedded.1/Storage/Drives/DellPhysicalDisk/Disk.Bay.22:Enclosure.Internal.0-2:RAID.Integrated.1-1",
+                "@odata.type": "#DellPhysicalDisk.v1_1_0.DellPhysicalDisk",
+                "Connector": 0,
+                "DriveFormFactor": "2.5Inch",
+                "ForeignKeyIdentifier": null,
+                "FreeSizeInBytes": 0,
+                "LastSystemInventoryTime": "2022-05-02T03:12:54+00:00",
+                "LastUpdateTime": "2022-05-02T03:12:54+00:00",
+                "ManufacturingDay": 0,
+                "ManufacturingWeek": 51,
+                "ManufacturingYear": 2019,
+                "OperationName": "None",
+                "OperationPercentCompletePercent": 0,
+                "PPID": "PH0WFGTHTBPKK9CF13YRA02",
+                "PredictiveFailureState": "SmartAlertAbsent",
+                "RAIDType": "Unknown",
+                "RaidStatus": "Online",
+                "SASAddress": "58CE38EE20CF3B5A",
+                "Slot": 22,
+                "SystemEraseCapability": "CryptographicErasePD",
+                "T10PICapability": "NotSupported",
+                "UsedSizeInBytes": 959656755200
+            }
+        }
+    },
+    "Operations": [],
+    "Operations@odata.count": 0,
+    "PartNumber": "PH0WFGTHTBPKK9CF13YRA02",
+    "PhysicalLocation": {
+        "PartLocation": {
+            "LocationOrdinalValue": 22,
+            "LocationType": "Slot"
+        }
+    },
+    "PredictedMediaLifeLeftPercent": 97,
+    "Protocol": "SAS",
+    "Revision": "B01C",
+    "RotationSpeedRPM": null,
+    "SerialNumber": "Z9F0A02VTP5F",
+    "Status": {
+        "Health": "OK",
+        "HealthRollup": "OK",
+        "State": "Enabled"
+    }
+}

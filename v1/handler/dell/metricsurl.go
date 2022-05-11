@@ -1,5 +1,5 @@
 package dell
 
-var (
+const (
 	computerSystemURL = "/redfish/v1/Systems/System.Embedded.1"
 )

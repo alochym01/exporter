@@ -14,9 +14,27 @@
                 // Define function to handle request
                 router.GET("/metrics/dell", dHandler.Metrics)
 
-    handler/dell/metrics.go -- define Custom Prometheus Interface(Describe Functionand Collect Function). This is a main file to code
+    handler/dell/metrics.go
+        - define Custom Prometheus Interface.
+            - Implementation Describe Function.
+            - Implementation Collect Function.
+        - This is a main file to code.
 
-    handler/dell/metricsurl.go -- define dell metrics URLs
+    handler/dell/metricsurl.go
+        - define dell metrics URLs.
 
-    handler/dell/dell.go -- Register Prometheus Metrics
+    handler/dell/dell.go
+        - Register Prometheus Metrics.
+
+    metric/dellMetrics.go
+        - Define all struct to marshal from iDrac data to Golang Object
+
+    metric/promMetrics.go
+        - Define Exporter Metric in Prometheus Format
+
+    service/dell/dell.go
+        - Convert data from iDrac into Golang Object.
+
+    storage/redfish.go
+        - Getting data from iDrac/iLO
     ```

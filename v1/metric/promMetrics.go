@@ -31,10 +31,18 @@ var (
 		[]string{},
 		nil,
 	)
+
 	SysTemperatureStatus = prometheus.NewDesc(
 		"temperature_status",
 		"temperature_status of server {0: OK, 1: Warning, 2: Critical}",
 		[]string{},
+		nil,
+	)
+
+	SysStorageDisk = prometheus.NewDesc(
+		"storage_drive_ssd_endurance",
+		"storage_drive_ssd_endurance {100: OK, 50: Warning, 20: Critical}",
+		[]string{"id", "capacity", "interface_type", "media_type"},
 		nil,
 	)
 )

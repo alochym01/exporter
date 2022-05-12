@@ -126,6 +126,20 @@ type DellStorage struct {
 
 // DellStorage end
 
+// DellStorageDisk start
+type DellStorageDisk struct {
+	Id                            string  `json:Id`
+	MediaType                     string  `json:MediaType`
+	Name                          string  `json:Name`
+	PartNumber                    string  `json:PartNumber`
+	PredictedMediaLifeLeftPercent float64 `json:PredictedMediaLifeLeftPercent`
+	SerialNumber                  string  `json:SerialNumber`
+	CapacityBytes                 int     `json:CapacityBytes`
+	Protocol                      string  `json:Protocol`
+}
+
+// DellStorageDisk end
+
 // type DellSystems struct {
 // 	Meta
 // 	Actions                DellActions

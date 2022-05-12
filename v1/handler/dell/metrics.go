@@ -51,6 +51,29 @@ func (m Metrics) Collect(ch chan<- prometheus.Metric) {
 	ch <- prometheus.MustNewConstMetric(metric.SysTemperatureStatus, prometheus.GaugeValue, sys.Oem.TemperatureStatus())
 	// ComputerSystem Storage Status end
 
+	// Storage Disk start
+	storageurl := m.server + storageURL
+	m.svc.StorageWithChannel(storageurl, m.server, ch)
+	// Storage Disk end
+
+	// storage, err := m.svc.Storage(storageurl)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	// ComputerSystem set Warning for Timeout
+	// 	// ch <- prometheus.MustNewConstMetric(metric.SysState, prometheus.GaugeValue, 1, "", "", "")
+	// 	return
+	// }
+	// for _, v := range storage.Drives {
+	// 	// fmt.Println("index ", i)
+	// 	// fmt.Println("value ", v.ODataID)
+	// 	diskURL := m.server + v.ODataID
+	// 	storageDisk, err := m.svc.StorageDisk(diskURL)
+	// 	if err != nil {
+	// 		fmt.Println(err)
+	// 	}
+	// 	fmt.Println(storageDisk)
+	// }
+	// fmt.Println(storage)
 	// fmt.Println(data)
 }
 

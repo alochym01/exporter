@@ -65,12 +65,10 @@ func (s Service) StorageWithChannel(url, server string, ch chan<- prometheus.Met
 	}
 
 	// get Disk info
-	// disks := make(chan metric.DellStorageDisk, len(computerStorage.Drives))
 	for _, v := range computerStorage.Drives {
 		// fmt.Println("index ", i)
 		// fmt.Println("value ", v.ODataID)
 		diskURL := server + v.ODataID
-		// go s.StorageDiskWithChannel(diskURL, disks)
 		disk, err := s.StorageDisk(diskURL)
 		if err == nil {
 			if disk.PredictedMediaLifeLeftPercent > 0 {
@@ -90,25 +88,6 @@ func (s Service) StorageWithChannel(url, server string, ch chan<- prometheus.Met
 			}
 		}
 	}
-
-	// for range computerStorage.Drives {
-	// 	disk := <-disks
-	// 	if disk.PredictedMediaLifeLeftPercent > 0 {
-	// 		// string{"id", "capacity", "interface_type", "media_type"},
-	// 		// storage_drive_ssd_endurance{capacity="959",id="18",interface_type="SAS",media_type="SSD"} 100
-	// 		enclosure := strings.Split(disk.Id, ".")[2]
-	// 		id := strings.Split(enclosure, ":")[0]
-	// 		ch <- prometheus.MustNewConstMetric(
-	// 			metric.SysStorageDisk,
-	// 			prometheus.GaugeValue,
-	// 			disk.PredictedMediaLifeLeftPercent,
-	// 			fmt.Sprintf("%s", id),
-	// 			fmt.Sprintf("%d", disk.CapacityBytes/1000000000),
-	// 			disk.Protocol,
-	// 			disk.MediaType,
-	// 		)
-	// 	}
-	// }
 }
 
 // StorageDisk handle error handle error should return Golang Object type with having Error
@@ -146,7 +125,5 @@ func (s Service) StorageDiskWithChannel(url string, disk chan<- metric.DellStora
 		return
 	}
 
-	// b, err := json.MarshalIndent(storageDisk, "", "   ")
-	// fmt.Println(string(b))
 	disk <- storageDisk
 }

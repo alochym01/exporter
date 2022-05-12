@@ -56,25 +56,6 @@ func (m Metrics) Collect(ch chan<- prometheus.Metric) {
 	m.svc.StorageWithChannel(storageurl, m.server, ch)
 	// Storage Disk end
 
-	// storage, err := m.svc.Storage(storageurl)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// 	// ComputerSystem set Warning for Timeout
-	// 	// ch <- prometheus.MustNewConstMetric(metric.SysState, prometheus.GaugeValue, 1, "", "", "")
-	// 	return
-	// }
-	// for _, v := range storage.Drives {
-	// 	// fmt.Println("index ", i)
-	// 	// fmt.Println("value ", v.ODataID)
-	// 	diskURL := m.server + v.ODataID
-	// 	storageDisk, err := m.svc.StorageDisk(diskURL)
-	// 	if err != nil {
-	// 		fmt.Println(err)
-	// 	}
-	// 	fmt.Println(storageDisk)
-	// }
-	// fmt.Println(storage)
-	// fmt.Println(data)
 }
 
 // NewMetrics return a Metrics struct

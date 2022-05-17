@@ -104,26 +104,35 @@ func (s Service) StorageDisk(url string) (*metric.DellStorageDisk, error) {
 		return nil, err
 	}
 
-	b, err := json.MarshalIndent(storageDisk, "", "   ")
-	fmt.Println(string(b))
+	// b, err := json.MarshalIndent(storageDisk, "", "   ")
+	// fmt.Println(string(b))
+
 	return &storageDisk, nil
 }
 
-// StorageDiskWithChannel
-func (s Service) StorageDiskWithChannel(url string, disk chan<- metric.DellStorageDisk) {
+// Storage handle error should return Golang Object type with having Error
+func (s Service) PowerWithChannel(url string, ch chan<- prometheus.Metric) {
 	data, err := s.store.Get(url)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	var storageDisk metric.DellStorageDisk
-
-	err = json.Unmarshal(data, &storageDisk)
+	var power metric.DellPower
+	err = json.Unmarshal(data, &power)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	disk <- storageDisk
+	// b, err := json.MarshalIndent(power, "", "   ")
+	// fmt.Println(string(b))
+
+	for _, v := range power.PowerControl {
+		ch <- prometheus.MustNewConstMetric(
+			metric.ChasPower,
+			prometheus.GaugeValue,
+			v.PowerConsumedWatts,
+		)
+	}
 }

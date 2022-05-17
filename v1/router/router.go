@@ -1,6 +1,7 @@
 package router
 
 import (
+	"strconv"
 	"strings"
 	"time"
 
@@ -12,7 +13,7 @@ import (
 
 // Router ...
 // func Router(db *sql.DB) *gin.Engine {
-func Router(ginMode string) *gin.Engine {
+func Router(ginMode string, timeOut string) *gin.Engine {
 	// redfish.ClientDELL = redfish.NewAPIClient("root", "calvin")
 	// redfish.ClientHPE = redfish.NewAPIClient("username", "password")
 
@@ -23,7 +24,8 @@ func Router(ginMode string) *gin.Engine {
 	}
 
 	// Dell Handler Metrics
-	dStore := storage.NewClient("root", "calvin", time.Duration(2))
+	t, _ := strconv.ParseInt(timeOut, 10, 64)
+	dStore := storage.NewClient("root", "calvin", time.Duration(t))
 	dService := dellService.NewService(dStore)
 	dHandler := dellHandler.NewHandler(dService)
 	router.GET("/metrics/dell", dHandler.Metrics)

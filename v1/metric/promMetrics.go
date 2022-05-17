@@ -3,7 +3,6 @@ package metric
 import "github.com/prometheus/client_golang/prometheus"
 
 var (
-	// SysState => System Health Metric
 	SysState = prometheus.NewDesc(
 		"system_status",
 		"system_status {0: OK, 1: Warning, 2: Critical}",
@@ -43,6 +42,13 @@ var (
 		"storage_drive_ssd_endurance",
 		"storage_drive_ssd_endurance {100: OK, 50: Warning, 20: Critical}",
 		[]string{"id", "capacity", "interface_type", "media_type"},
+		nil,
+	)
+
+	ChasPower = prometheus.NewDesc(
+		"power_consumed",
+		"power_consumed of server",
+		[]string{},
 		nil,
 	)
 )
